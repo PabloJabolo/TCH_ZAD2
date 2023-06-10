@@ -50,4 +50,15 @@ jobs:
           cache-from: type=registry,ref=${{ github.repository_owner }}/app:${{ steps.get_version.outputs.version }}
           cache-to: type=inline
 
+      - name: Install Scout CLI
+        run: |
+          curl -sSL https://github.com/scoutapp/scout-cli/releases/latest/download/scout_linux_amd64.tar.gz | tar xz
+          sudo mv scout /usr/local/bin/
+
+      - name: Run Scout
+        run: |
+          scout --docker ghcr.io/${{ github.repository_owner }}/app:${{ steps.get_commit.outputs.commit }}
+
+
+
           
