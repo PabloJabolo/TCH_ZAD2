@@ -23,6 +23,8 @@ Sprawozdanie - zadanie 2
 
 ![Strona](img/app_web.jpg)
 
+---
+
 #### 2. Zbudowanie obrazu i test CVE:
 * Polecenie:
     `docker build -t local/zad2:v1`
@@ -36,6 +38,8 @@ Sprawozdanie - zadanie 2
 ![CVES1](img/cves1.jpg)
 
 ![CVES2](img/cves2.jpg)
+
+---
 
 #### 3. Opracowanie łańcucha działań w ramach Github Actions:
 
@@ -92,6 +96,21 @@ jobs:
           cache-from: type=registry,ref=${{ github.repository_owner }}/app:${{ steps.get_version.outputs.version }}
           cache-to: type=inline
 
+
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # - name: Scout scan
+      #   uses: snyk/actions/scanner-docker@v2
+      #   with:
+      #     image: ghcr.io/${{ github.repository_owner }}/app:${{ steps.get_commit.outputs.commit }}
+      #     args: --all-projects
+      #     token: ${{ secrets.SNYK_TOKEN }}
+      
 ```
 
-![Workflow](img/workflow.jpg)
+![Workflow](img/workflow_build.jpg)
