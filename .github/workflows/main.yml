@@ -55,6 +55,9 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true
+        with:
+          image: ghcr.io/${{github.repository_owner}}/app:${{ steps.increment_version.outputs.new_version }}
+          args: --file=Dockerfile --severity-threshold=critical --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
