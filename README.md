@@ -39,7 +39,8 @@ Sprawozdanie - zadanie 2
 
 #### 3. Opracowanie łańcucha działań w ramach Github Actions:
 
-`name: gha_workflow:zadanie_2
+```
+name: gha_workflow:zadanie_2
 
 on:
   workflow_dispatch:
@@ -89,6 +90,8 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository_owner }}/app:${{ steps.get_commit.outputs.commit }}
           cache-from: type=registry,ref=${{ github.repository_owner }}/app:${{ steps.get_version.outputs.version }}
-          cache-to: type=inline`
+          cache-to: type=inline
+
+```
 
 ![Workflow](img/workflow.jpg)
