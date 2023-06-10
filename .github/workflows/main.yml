@@ -56,7 +56,7 @@ jobs:
         uses: snyk/actions/node@master
         continue-on-error: true
         with:
-          image: ghcr.io/${{github.repository_owner}}/app:${{ steps.increment_version.outputs.new_version }}
+          image: ghcr.io/${{github.repository_owner}}/app:${{ steps.get_commit.outputs.commit }}
           args: --file=Dockerfile --severity-threshold=critical --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
